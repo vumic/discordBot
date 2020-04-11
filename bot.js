@@ -54,7 +54,7 @@ client.on('message', async message => {
         let randomNum = Math.floor(Math.random() * 50) + 1;
         let movieID;
         //finds the random movie.
-        await axios.get(url + 'discover/movie' + auth.API_KEY + '&language=en-US &sort_by=popularity.desc&include_adult=false&include_video=false&page=' + randomNum + name)
+        await axios.get(url + 'discover/movie' + process.env.API_KEY + '&language=en-US &sort_by=popularity.desc&include_adult=false&include_video=false&page=' + randomNum + name)
             .then((response) => {
                 let array = response.data;
                 let randomNum2 = Math.floor(Math.random() * 20);
@@ -62,7 +62,7 @@ client.on('message', async message => {
                 movieID = movie.id;
             });
         //gets the movie facts
-        await axios.get(url + 'movie/' + movieID + auth.API_KEY + '&language=en-US')
+        await axios.get(url + 'movie/' + movieID + process.env.API_KEY + '&language=en-US')
             .then((response) => {
                 let movie = response.data;
                 let gen = '';
@@ -96,4 +96,4 @@ function getGenreID(command) {
     }
     return -1;
 }
-client.login(auth.token);
+client.login(process.env.BOT_TOKEN);

@@ -1,6 +1,6 @@
 const axios = require('axios');
 const Discord = require('discord.js');
-const auth = require('./auth.json');
+
 const genres = require('./genres.json');
 const client = new Discord.Client();
 const prefix = '!';

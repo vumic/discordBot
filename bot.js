@@ -36,7 +36,7 @@ client.on('message', async message => {
         command === "history" |
         command === "horror" |
         command === "music" |
-        command === "Mystery" |
+        command === "mystery" |
         command === "romance" |
         command === "science_fiction" |
         command === "tv_movie" |

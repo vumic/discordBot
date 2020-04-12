@@ -74,7 +74,7 @@ client.on('message', async message => {
                 (movie.genres.length<1) ? genre = "No Genre" : genre = gen;
                 (!movie.release_date) ? rDate = "No Release Date" : rDate = movie.release_date;
                 (!movie.overview) ? overview = "No Overview" : overview = movie.overview;
-                (!movie.tagline) ? tag = "No Release Date" : tag = movie.tagline;
+                (!movie.tagline) ? tag = "No Tagline" : tag = movie.tagline;
                 (!movie.vote_average) ? rating = "No Rating" : rating = movie.vote_average + "/10";
                 (!movie.runtime) ? runtime = "No Runtime" : runtime = movie.runtime +" min";
                 (!movie.imdb_id) ? link = "tt0241527" : link = movie.imdb_id;

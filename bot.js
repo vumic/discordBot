@@ -57,9 +57,18 @@ client.on('message', async message => {
                 name = "&with_genres=" + genreID + str;
             }
         }
-        let randomNum = Math.floor(Math.random() * 50) + 1;
+        let total_pages = 0;
+        //gets max pages
+        await axios.get(url + 'discover/movie' + process.env.API_KEY + '&language=en-US &sort_by=popularity.desc&include_adult=false&include_video=false&page=' + 1 + name)
+            .then((response) => {
+                let array = response.data;
+                total_pages = array.total_pages;
+            });
+        let randomNum = 0
+        (total_pages >= 50) ? randomNum = Math.floor(Math.random() * 50) + 1 : randomNum = total_pages;
+
         let movieID;
-        //finds the random movie.
+        //finds the random movie (but in top 50 pages so its not obscure (each page has 20 movies)).
         await axios.get(url + 'discover/movie' + process.env.API_KEY + '&language=en-US &sort_by=popularity.desc&include_adult=false&include_video=false&page=' + randomNum + name)
             .then((response) => {
                 let array = response.data;
@@ -67,6 +76,7 @@ client.on('message', async message => {
                 let movie = array.results[randomNum2];
                 movieID = movie.id;
             });
+
         //gets the movie facts
         await axios.get(url + 'movie/' + movieID + process.env.API_KEY + '&language=en-US')
             .then((response) => {
@@ -77,6 +87,8 @@ client.on('message', async message => {
                 for (let i = 0; i < movie.genres.length; i++) {
                     gen += `${movie.genres[i].name} `;
                 }
+                
+                //makes sure that no embeded fields are null
                 (movie.genres.length<1) ? genre = "No Genre" : genre = gen;
                 (!movie.release_date) ? rDate = "No Release Date" : rDate = movie.release_date;
                 (!movie.overview) ? overview = "No Overview" : overview = movie.overview;

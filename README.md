@@ -1,4 +1,3 @@
-# R-Movie
 Discord bot that randomizes a movie based on genre
 - utilizes [tMDB](https://developers.themoviedb.org/3/getting-started/introduction).
 - hosted on Heroku

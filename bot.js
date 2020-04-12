@@ -65,7 +65,7 @@ client.on('message', async message => {
         await axios.get(url + 'movie/' + movieID + process.env.API_KEY + '&language=en-US')
             .then((response) => {
                 let movie = response.data;
-                let gen = '';
+                let gen = " ";
                 for (let i = 0; i < movie.genres.length; i++) {
                     gen += `${movie.genres[i].name} `;
                 }
@@ -74,9 +74,9 @@ client.on('message', async message => {
                     .setTitle(movie.title)
                     .setURL(`https://www.imdb.com/title/${movie.imdb_id}/`)
                     .addFields(
-                        { name: 'Overview:', value: movie.overview },
-                        { name: 'Release date:', value: movie.release_date },
-                        { name: 'Tagline:', value: movie.tagline },
+                        { name: 'Overview:', value: movie.overview + " "},
+                        { name: 'Release date:', value: movie.release_date+ " " },
+                        { name: 'Tagline:', value: movie.tagline + " "},
                         { name: 'Rating:', value: movie.vote_average + '/10' },
                         { name: 'Runtime:', value: movie.runtime + 'min' },
                         { name: 'Genres:', value: gen },

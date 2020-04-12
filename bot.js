@@ -145,7 +145,6 @@ function getGenreID(command) {
         }
     }
 }
-    message.channel.send(command + "is not correct");
     return -1;
 }
 client.login(process.env.BOT_TOKEN);

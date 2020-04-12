@@ -65,21 +65,31 @@ client.on('message', async message => {
         await axios.get(url + 'movie/' + movieID + process.env.API_KEY + '&language=en-US')
             .then((response) => {
                 let movie = response.data;
-                let gen = " ";
+                let gen = '';
+                let overview,rDate,tag,rating,runtime,genre,link,title;
+
                 for (let i = 0; i < movie.genres.length; i++) {
                     gen += `${movie.genres[i].name} `;
                 }
+                (movie.genres.length<1) ? genre = "No Genre" : genre = gen;
+                (!movie.release_date) ? rDate = "No Release Date" : rDate = movie.release_date;
+                (!movie.overview) ? overview = "No Overview" : overview = movie.overview;
+                (!movie.tagline) ? tag = "No Release Date" : tag = movie.tagline;
+                (!movie.vote_average) ? rating = "No Rating" : rating = movie.vote_average + "/10";
+                (!movie.runtime) ? runtime = "No Runtime" : runtime = movie.runtime +" min";
+                (!movie.imdb_id) ? link = "tt0241527" : link = movie.imdb_id;
+                (!movie.title) ? title = "No Title" : title = movie.title;
                 const embed = new Discord.MessageEmbed()
                     .setColor('#827CC5')
-                    .setTitle(movie.title)
-                    .setURL(`https://www.imdb.com/title/${movie.imdb_id}/`)
+                    .setTitle(title)
+                    .setURL(`https://www.imdb.com/title/${link}/`)
                     .addFields(
-                        { name: 'Overview:', value: movie.overview + " "},
-                        { name: 'Release date:', value: movie.release_date+ " " },
-                        { name: 'Tagline:', value: movie.tagline + " "},
-                        { name: 'Rating:', value: movie.vote_average + '/10' },
-                        { name: 'Runtime:', value: movie.runtime + 'min' },
-                        { name: 'Genres:', value: gen },
+                        { name: 'Overview:', value: overview},
+                        { name: 'Release date:', value: rDate },
+                        { name: 'Tagline:', value: tag},
+                        { name: 'Rating:', value: rating },
+                        { name: 'Runtime:', value: runtime },
+                        { name: 'Genres:', value: genre },
                     );
                 message.channel.send(embed);
             });

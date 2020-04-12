@@ -15,7 +15,6 @@ client.on('message', async message => {
 
     const args = message.content.slice(prefix.length).split(/ +/);
     const command = args.shift().toLowerCase();
-
     //Lists all genres possible.
     if (command === "help") {
         let gen = '';
@@ -45,10 +44,17 @@ client.on('message', async message => {
         command === "western" |
         command === "random") {
         let name = "";
+        let str = "";
+        if (args.length) {
+            for(let j = 0; j < args.length; j++){
+                let gid = getGenreID(args[j]);
+                str += "," + gid;  
+            }
+        }
         if (command !== "random") {
             let genreID = getGenreID(command);
             if (genreID > 0) {
-                name = "&with_genres=" + genreID;
+                name = "&with_genres=" + genreID + str;
             }
         }
         let randomNum = Math.floor(Math.random() * 50) + 1;

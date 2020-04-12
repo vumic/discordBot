@@ -57,15 +57,15 @@ client.on('message', async message => {
                 name = "&with_genres=" + genreID + str;
             }
         }
-        let total_pages = 1;
+        let pages = 1;
         //gets max pages
-        await axios.get(url + 'discover/movie' + process.env.API_KEY + '&language=en-US &sort_by=popularity.desc&include_adult=false&include_video=false&page=' + total_pages + name)
+        await axios.get(url + 'discover/movie' + process.env.API_KEY + '&language=en-US &sort_by=popularity.desc&include_adult=false&include_video=false&page=' + pages + name)
             .then((response) => {
                 let arr = response.data;
-                total_pages = arr.total_pages;
+                pages = arr.total_pages;
             });
-        let randomNum = 1
-        (total_pages >= 50) ? randomNum = Math.floor(Math.random() * 50) + 1 : randomNum = total_pages;
+        let randomNum = 1;
+        (pages >= 50) ? randomNum = Math.floor(Math.random() * 50) + 1 : randomNum = pages;
 
         let movieID;
         //finds the random movie (but in top 50 pages so its not obscure (each page has 20 movies)).

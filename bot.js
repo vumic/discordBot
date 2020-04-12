@@ -21,7 +21,7 @@ client.on('message', async message => {
         for (var i = 0; i < genres.length; i++) {
             gen += `${genres[i].name} `;
         }
-        message.channel.send(`Please enter !genre\nGenres include... ${gen}`);
+        message.channel.send(`Please enter !genre\nMultiple genres separate with spaces\nGenres include... ${gen}`);
     }
     else if (command === "action" |
         command === "adventure" |
@@ -61,7 +61,7 @@ client.on('message', async message => {
         }
         let pages = 1;
         //gets max pages
-        await axios.get(url + 'discover/movie' + process.env.API_KEY + '&language=en-US &sort_by=popularity.desc&include_adult=false&include_video=false&page=' + pages + name)
+        await axios.get(url + 'discover/movie' + process.env.API_KEY + '&language=en-US &sort_by=popularity.desc&include_adult=false&include_video=false&page=' + pages + name+ '&with_original_language=en')
             .then((response) => {
                 let arr = response.data;
                 pages = arr.total_pages;
@@ -71,7 +71,7 @@ client.on('message', async message => {
 
         let movieID;
         //finds the random movie (but in top 50 pages so its not obscure (each page has 20 movies)).
-        await axios.get(url + 'discover/movie' + process.env.API_KEY + '&language=en-US &sort_by=popularity.desc&include_adult=false&include_video=false&page=' + randomNum + name)
+        await axios.get(url + 'discover/movie' + process.env.API_KEY + '&language=en-US &sort_by=popularity.desc&include_adult=false&include_video=false&page=' + randomNum + name+ '&with_original_language=en')
             .then((response) => {
                 let array = response.data;
                 let randomNum2 = Math.floor(Math.random() * 20);

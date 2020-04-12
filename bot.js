@@ -48,7 +48,9 @@ client.on('message', async message => {
         if (args.length) {
             for(let j = 0; j < args.length; j++){
                 let gid = getGenreID(args[j]);
+                if(gid > 0){
                 str += "," + gid;  
+                }
             }
         }
         if (command !== "random") {
@@ -117,11 +119,33 @@ client.on('message', async message => {
 });
 
 function getGenreID(command) {
+    if (command === "action" |
+        command === "adventure" |
+        command === "animation" |
+        command === "comedy" |
+        command === "crime" |
+        command === "documentary" |
+        command === "drama" |
+        command === "family" |
+        command === "fantasy" |
+        command === "history" |
+        command === "horror" |
+        command === "music" |
+        command === "mystery" |
+        command === "romance" |
+        command === "science_fiction" |
+        command === "tv_movie" |
+        command === "thriller" |
+        command === "war" |
+        command === "western" |
+        command === "random"){
     for (var i = 0; i < genres.length; i++) {
         if (genres[i].name === command) {
-            return genres[i].id
+            return genres[i].id;
         }
     }
+}
+    message.channel.send(command + "is not correct");
     return -1;
 }
 client.login(process.env.BOT_TOKEN);

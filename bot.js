@@ -19,9 +19,9 @@ client.on('message', async message => {
     if (command === "help") {
         let gen = '';
         for (var i = 0; i < genres.length; i++) {
-            gen += `${genres[i].name} `;
+            gen += `\n${genres[i].name} `;
         }
-        message.channel.send(`Please enter !movie genre ... or !movie_p for top 100 movies.\nMultiple genres separate with spaces\nGenres include... ${gen}`);
+        message.channel.send(`Commands: !movie [genre] or !movie_p [genre] for top 100 movies.\nSeparate genres with a space.\nGenres include... ${gen}`);
     }
     //gets random movie, !movie genre genre ... !movie_p will give top 100 movies if possible.
     else if (command === "movie" || command === "movie_p") {
@@ -49,8 +49,6 @@ client.on('message', async message => {
                     name = "&with_genres=" + genreID + str;
                 }
             }
-        } else {
-            message.channel.send(`Please enter arguments! If you need help, type !help`);
         }
 
         //gets max pages 
